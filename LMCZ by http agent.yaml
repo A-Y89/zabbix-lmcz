@@ -1,0 +1,327 @@
+zabbix_export:
+  version: '7.0'
+  template_groups:
+    - uuid: a571c0d144b14fd4a87a9d9b2aa9fcd6
+      name: Templates/Applications
+  templates:
+    - uuid: af0662eaef394059b72869a2be78e1f6
+      template: 'LMCZ by http agent'
+      name: 'LMCZ by http agent'
+      description: 'Шаблон для проверки состояния веб сервера ЛМЧЗ'
+      groups:
+        - name: Templates/Applications
+      items:
+        - uuid: 1d583a6e91dc46769d7fb5c120f39a82
+          name: 'Версия базы данных «чёрного списка»'
+          type: DEPENDENT
+          key: lmcz.dbVersion
+          delay: '0'
+          value_type: CHAR
+          trends: '0'
+          preprocessing:
+            - type: JSONPATH
+              parameters:
+                - $.dbVersion
+          master_item:
+            key: lmcz.getStatus
+          tags:
+            - tag: ЛМЧЗ
+        - uuid: 1e847bfd401e41ca8beeb6cc8849e1dd
+          name: 'Данные /api/v1/status'
+          type: HTTP_AGENT
+          key: lmcz.getStatus
+          value_type: TEXT
+          trends: '0'
+          authtype: BASIC
+          username: '{$LMCZ_USER}'
+          password: '{$LMCZ_PWD}'
+          url: 'http://{HOST.CONN}:5995/api/v1/status'
+          tags:
+            - tag: ЛМЧЗ
+        - uuid: a7bd57a4eb8c492c8935e528e8a853ee
+          name: 'ИНН участника оборота'
+          type: DEPENDENT
+          key: lmcz.inn
+          delay: '0'
+          value_type: CHAR
+          trends: '0'
+          preprocessing:
+            - type: JSONPATH
+              parameters:
+                - $.inn
+          master_item:
+            key: lmcz.getStatus
+          tags:
+            - tag: ЛМЧЗ
+        - uuid: 540f5116581642008e2b8bfecbed29e2
+          name: 'Идентификатор экземпляра СПО «Локальный модуль «Честный ЗНАК»'
+          type: DEPENDENT
+          key: lmcz.inst
+          delay: '0'
+          value_type: CHAR
+          trends: '0'
+          preprocessing:
+            - type: JSONPATH
+              parameters:
+                - $.inst
+          master_item:
+            key: lmcz.getStatus
+          tags:
+            - tag: ЛМЧЗ
+        - uuid: 64ffeead12c043d98b23b8afe14b9684
+          name: 'Дата и время последней синхронизации'
+          type: DEPENDENT
+          key: lmcz.lastSync
+          delay: '0'
+          trends: '0'
+          preprocessing:
+            - type: JSONPATH
+              parameters:
+                - $.lastSync
+          master_item:
+            key: lmcz.getStatus
+          tags:
+            - tag: ЛМЧЗ
+          triggers:
+            - uuid: 0017e597b1b6492faef55585477bd6e6
+              expression: 'last(/LMCZ by http agent/lmcz.lastSync)<(now()-86400)'
+              name: '[ЛМЧЗ] Данные не синхронизировались более 1 суток'
+              priority: WARNING
+        - uuid: d460ac33287c4263899afa998f965d9f
+          name: 'Последнее известное время запуска одной из действующих репликаций'
+          type: DEPENDENT
+          key: lmcz.lastUpdate
+          delay: '0'
+          trends: '0'
+          preprocessing:
+            - type: JSONPATH
+              parameters:
+                - $.lastUpdate
+          master_item:
+            key: lmcz.getStatus
+          tags:
+            - tag: ЛМЧЗ
+        - uuid: 08af6eef6dd94ca3b6276f679ec53b23
+          name: 'Наименование программного обеспечения'
+          type: DEPENDENT
+          key: lmcz.name
+          delay: '0'
+          value_type: CHAR
+          trends: '0'
+          preprocessing:
+            - type: JSONPATH
+              parameters:
+                - $.name
+          master_item:
+            key: lmcz.getStatus
+          tags:
+            - tag: ЛМЧЗ
+        - uuid: 1a29800802a74cbe95e8970b2805db60
+          name: 'Тип режима обслуживания'
+          type: DEPENDENT
+          key: lmcz.operationMode
+          delay: '0'
+          value_type: CHAR
+          trends: '0'
+          preprocessing:
+            - type: JSONPATH
+              parameters:
+                - $.operationMode
+          master_item:
+            key: lmcz.getStatus
+          tags:
+            - tag: ЛМЧЗ
+          triggers:
+            - uuid: 0948fb9cdb1d454895b2d2b6d1165a3c
+              expression: 'last(/LMCZ by http agent/lmcz.operationMode)="service"'
+              name: '[ЛМЧЗ] Некорректный тип режима обслуживания ({ITEM.LASTVALUE})'
+              priority: AVERAGE
+        - uuid: 40ca3dd2456f40f8899d392cc588f774
+          name: 'Состояние репликации blocked_cis - localDocCount'
+          type: DEPENDENT
+          key: lmcz.replicationStatus.blocked_cis.localDocCount
+          delay: '0'
+          trends: '0'
+          preprocessing:
+            - type: JSONPATH
+              parameters:
+                - $.replicationStatus.blocked_cis.localDocCount
+          master_item:
+            key: lmcz.getStatus
+          tags:
+            - tag: ЛМЧЗ
+        - uuid: cb597515a9cf40da9e2bb3e67e25d4c3
+          name: 'Состояние репликации blocked_cis - serverDocCount'
+          type: DEPENDENT
+          key: lmcz.replicationStatus.blocked_cis.serverDocCount
+          delay: '0'
+          trends: '0'
+          preprocessing:
+            - type: JSONPATH
+              parameters:
+                - $.replicationStatus.blocked_cis.serverDocCount
+          master_item:
+            key: lmcz.getStatus
+          tags:
+            - tag: ЛМЧЗ
+        - uuid: 5ae8c8925bcb4cd3be3410b4ae30a684
+          name: 'Состояние репликации blocked_cis - timeLag'
+          type: DEPENDENT
+          key: lmcz.replicationStatus.blocked_cis.timeLag
+          delay: '0'
+          trends: '0'
+          units: ms
+          preprocessing:
+            - type: JSONPATH
+              parameters:
+                - $.replicationStatus.blocked_cis.timeLag
+          master_item:
+            key: lmcz.getStatus
+          tags:
+            - tag: ЛМЧЗ
+        - uuid: 36274fb3e8834bc992a0c2d915dfc147
+          name: 'Состояние репликации blocked_gtin - localDocCount'
+          type: DEPENDENT
+          key: lmcz.replicationStatus.blocked_gtin.localDocCount
+          delay: '0'
+          trends: '0'
+          preprocessing:
+            - type: JSONPATH
+              parameters:
+                - $.replicationStatus.blocked_gtin.localDocCount
+          master_item:
+            key: lmcz.getStatus
+          tags:
+            - tag: ЛМЧЗ
+        - uuid: 337fec1b1e4f4831b763d3018b3e6236
+          name: 'Состояние репликации blocked_gtin - serverDocCount'
+          type: DEPENDENT
+          key: lmcz.replicationStatus.blocked_gtin.serverDocCount
+          delay: '0'
+          trends: '0'
+          preprocessing:
+            - type: JSONPATH
+              parameters:
+                - $.replicationStatus.blocked_gtin.serverDocCount
+          master_item:
+            key: lmcz.getStatus
+          tags:
+            - tag: ЛМЧЗ
+        - uuid: a01b990aaba54fb88c0c974d6d5b87f0
+          name: 'Состояние репликации blocked_gtin - timeLag'
+          type: DEPENDENT
+          key: lmcz.replicationStatus.blocked_gtin.timeLag
+          delay: '0'
+          trends: '0'
+          units: ms
+          preprocessing:
+            - type: JSONPATH
+              parameters:
+                - $.replicationStatus.blocked_gtin.timeLag
+          master_item:
+            key: lmcz.getStatus
+          tags:
+            - tag: ЛМЧЗ
+        - uuid: dbdb92d6b60e48518a3ac489277aef54
+          name: 'Состояние репликации CIS - localDocCount'
+          type: DEPENDENT
+          key: lmcz.replicationStatus.cis.localDocCount
+          delay: '0'
+          trends: '0'
+          preprocessing:
+            - type: JSONPATH
+              parameters:
+                - $.replicationStatus.cis.localDocCount
+          master_item:
+            key: lmcz.getStatus
+          tags:
+            - tag: ЛМЧЗ
+        - uuid: d10b4297be5a42f4bef32e97231e9f4a
+          name: 'Состояние репликации CIS - serverDocCount'
+          type: DEPENDENT
+          key: lmcz.replicationStatus.cis.serverDocCount
+          delay: '0'
+          trends: '0'
+          preprocessing:
+            - type: JSONPATH
+              parameters:
+                - $.replicationStatus.cis.serverDocCount
+          master_item:
+            key: lmcz.getStatus
+          tags:
+            - tag: ЛМЧЗ
+        - uuid: 27c8b499edfd414ba212cc62dfa817e5
+          name: 'Состояние репликации CIS - timeLag'
+          type: DEPENDENT
+          key: lmcz.replicationStatus.cis.timeLag
+          delay: '0'
+          trends: '0'
+          units: ms
+          preprocessing:
+            - type: JSONPATH
+              parameters:
+                - $.replicationStatus.cis.timeLag
+          master_item:
+            key: lmcz.getStatus
+          tags:
+            - tag: ЛМЧЗ
+        - uuid: 429d5680fe384773a0e1f9594421d6d2
+          name: 'Признак, что Системе требуется загрузка БД'
+          type: DEPENDENT
+          key: lmcz.requiresDownload
+          delay: '0'
+          value_type: CHAR
+          trends: '0'
+          preprocessing:
+            - type: JSONPATH
+              parameters:
+                - $.requiresDownload
+          master_item:
+            key: lmcz.getStatus
+          tags:
+            - tag: ЛМЧЗ
+          triggers:
+            - uuid: 3379eae6907945b095ed1715efc319b9
+              expression: 'last(/LMCZ by http agent/lmcz.requiresDownload)="true"'
+              name: '[ЛМЧЗ] Системе требуется загрузка БД'
+              priority: HIGH
+        - uuid: ec3f6b82b05343aab2800afd88763ceb
+          name: 'Статус СПО «Локальный модуль «Честный ЗНАК»'
+          type: DEPENDENT
+          key: lmcz.status
+          delay: '0'
+          value_type: CHAR
+          trends: '0'
+          preprocessing:
+            - type: JSONPATH
+              parameters:
+                - $.status
+          master_item:
+            key: lmcz.getStatus
+          tags:
+            - tag: ЛМЧЗ
+          triggers:
+            - uuid: 824f92111a7545aab2d27f7a60ce83e5
+              expression: 'last(/LMCZ by http agent/lmcz.status)<>"ready"'
+              name: '[ЛМЧЗ] Некорректный статус ({ITEM.LASTVALUE})'
+              priority: HIGH
+        - uuid: f0c1d481615e41c093c398e8d74c088e
+          name: 'Версия СПО «Локальный модуль «Честный ЗНАК»'
+          type: DEPENDENT
+          key: lmcz.version
+          delay: '0'
+          value_type: CHAR
+          trends: '0'
+          preprocessing:
+            - type: JSONPATH
+              parameters:
+                - $.version
+          master_item:
+            key: lmcz.getStatus
+          tags:
+            - tag: ЛМЧЗ
+      macros:
+        - macro: '{$LMCZ_PWD}'
+          description: 'Пароль к ЛМЧЗ'
+        - macro: '{$LMCZ_USER}'
+          description: 'Логин к ЛМЧЗ'
