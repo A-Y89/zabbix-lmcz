@@ -12,7 +12,7 @@
 ## Протестированные версии
 
 Шаблон протестирован на версии ЛМЧЗ:
-1.3.1-369
+1.4.0-421
 
 ## Конфигурация
 
@@ -50,13 +50,10 @@
 |Признак, что Системе требуется загрузка БД||Зависимый элемент данных|lmcz.requiresDownload<p>**Предобработка**</p><ul><li><p>JSON: `$.requiresDownload`</p></li></ul>|
 |Состояние репликации blocked_cis - localDocCount||Зависимый элемент данных|lmcz.replicationStatus.blocked_cis.localDocCount<p>**Предобработка**</p><ul><li><p>JSON: `$.replicationStatus.blocked_cis.localDocCount`</p></li></ul>|
 |Состояние репликации blocked_cis - serverDocCount||Зависимый элемент данных|lmcz.replicationStatus.blocked_cis.serverDocCount<p>**Предобработка**</p><ul><li><p>JSON: `$.replicationStatus.blocked_cis.serverDocCount`</p></li></ul>|
-|Состояние репликации blocked_cis - timeLag||Зависимый элемент данных|lmcz.replicationStatus.blocked_cis.timeLag<p>**Предобработка**</p><ul><li><p>JSON: `$.replicationStatus.blocked_cis.timeLag`</p></li></ul>|
 |Состояние репликации blocked_gtin - localDocCount||Зависимый элемент данных|lmcz.replicationStatus.blocked_gtin.localDocCount<p>**Предобработка**</p><ul><li><p>JSON: `$.replicationStatus.blocked_gtin.localDocCount`</p></li></ul>|
 |Состояние репликации blocked_gtin - serverDocCount||Зависимый элемент данных|lmcz.replicationStatus.blocked_gtin.serverDocCount<p>**Предобработка**</p><ul><li><p>JSON: `$.replicationStatus.blocked_gtin.serverDocCount`</p></li></ul>|
-|Состояние репликации blocked_gtin - timeLag||Зависимый элемент данных|lmcz.replicationStatus.blocked_gtin.timeLag<p>**Предобработка**</p><ul><li><p>JSON: `$.replicationStatus.blocked_gtin.timeLag`</p></li></ul>|
 |Состояние репликации CIS - localDocCount||Зависимый элемент данных|lmcz.replicationStatus.cis.localDocCount<p>**Предобработка**</p><ul><li><p>JSON: `$.replicationStatus.cis.localDocCount`</p></li></ul>|
 |Состояние репликации CIS - serverDocCount||Зависимый элемент данных|lmcz.replicationStatus.cis.serverDocCount<p>**Предобработка**</p><ul><li><p>JSON: `$.replicationStatus.cis.serverDocCount`</p></li></ul>|
-|Состояние репликации CIS - timeLag||Зависимый элемент данных|lmcz.replicationStatus.cis.timeLag<p>**Предобработка**</p><ul><li><p>JSON: `$.replicationStatus.cis.timeLag`</p></li></ul>|
 |Статус СПО «Локальный модуль «Честный ЗНАК»||Зависимый элемент данных|lmcz.status<p>**Предобработка**</p><ul><li><p>JSON: `$.status`</p></li></ul>|
 |Тип режима обслуживания||Зависимый элемент данных|lmcz.operationMode<p>**Предобработка**</p><ul><li><p>JSON: `$.operationMode`</p></li></ul>|
 
