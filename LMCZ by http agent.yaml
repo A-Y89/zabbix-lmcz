@@ -30,6 +30,7 @@ zabbix_export:
           name: 'Данные /api/v1/status'
           type: HTTP_AGENT
           key: lmcz.getStatus
+          delay: 1h
           value_type: TEXT
           trends: '0'
           authtype: BASIC
@@ -164,21 +165,6 @@ zabbix_export:
             key: lmcz.getStatus
           tags:
             - tag: ЛМЧЗ
-        - uuid: 5ae8c8925bcb4cd3be3410b4ae30a684
-          name: 'Состояние репликации blocked_cis - timeLag'
-          type: DEPENDENT
-          key: lmcz.replicationStatus.blocked_cis.timeLag
-          delay: '0'
-          trends: '0'
-          units: ms
-          preprocessing:
-            - type: JSONPATH
-              parameters:
-                - $.replicationStatus.blocked_cis.timeLag
-          master_item:
-            key: lmcz.getStatus
-          tags:
-            - tag: ЛМЧЗ
         - uuid: 36274fb3e8834bc992a0c2d915dfc147
           name: 'Состояние репликации blocked_gtin - localDocCount'
           type: DEPENDENT
@@ -207,21 +193,6 @@ zabbix_export:
             key: lmcz.getStatus
           tags:
             - tag: ЛМЧЗ
-        - uuid: a01b990aaba54fb88c0c974d6d5b87f0
-          name: 'Состояние репликации blocked_gtin - timeLag'
-          type: DEPENDENT
-          key: lmcz.replicationStatus.blocked_gtin.timeLag
-          delay: '0'
-          trends: '0'
-          units: ms
-          preprocessing:
-            - type: JSONPATH
-              parameters:
-                - $.replicationStatus.blocked_gtin.timeLag
-          master_item:
-            key: lmcz.getStatus
-          tags:
-            - tag: ЛМЧЗ
         - uuid: dbdb92d6b60e48518a3ac489277aef54
           name: 'Состояние репликации CIS - localDocCount'
           type: DEPENDENT
@@ -246,21 +217,6 @@ zabbix_export:
             - type: JSONPATH
               parameters:
                 - $.replicationStatus.cis.serverDocCount
-          master_item:
-            key: lmcz.getStatus
-          tags:
-            - tag: ЛМЧЗ
-        - uuid: 27c8b499edfd414ba212cc62dfa817e5
-          name: 'Состояние репликации CIS - timeLag'
-          type: DEPENDENT
-          key: lmcz.replicationStatus.cis.timeLag
-          delay: '0'
-          trends: '0'
-          units: ms
-          preprocessing:
-            - type: JSONPATH
-              parameters:
-                - $.replicationStatus.cis.timeLag
           master_item:
             key: lmcz.getStatus
           tags:
