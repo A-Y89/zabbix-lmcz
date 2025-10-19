@@ -12,7 +12,7 @@
 ## Протестированные версии
 
 Шаблон протестирован на версии ЛМЧЗ:
-1.4.1-445
+1.5.1-523
 
 ## Конфигурация
 
@@ -52,8 +52,8 @@
 |Состояние репликации blocked_cis - serverDocCount||Зависимый элемент данных|lmcz.replicationStatus.blocked_cis.serverDocCount<p>**Предобработка**</p><ul><li><p>JSON: `$.replicationStatus.blocked_cis.serverDocCount`</p></li></ul>|
 |Состояние репликации blocked_gtin - localDocCount||Зависимый элемент данных|lmcz.replicationStatus.blocked_gtin.localDocCount<p>**Предобработка**</p><ul><li><p>JSON: `$.replicationStatus.blocked_gtin.localDocCount`</p></li></ul>|
 |Состояние репликации blocked_gtin - serverDocCount||Зависимый элемент данных|lmcz.replicationStatus.blocked_gtin.serverDocCount<p>**Предобработка**</p><ul><li><p>JSON: `$.replicationStatus.blocked_gtin.serverDocCount`</p></li></ul>|
-|Состояние репликации CIS - localDocCount||Зависимый элемент данных|lmcz.replicationStatus.cis.localDocCount<p>**Предобработка**</p><ul><li><p>JSON: `$.replicationStatus.cis.localDocCount`</p></li></ul>|
-|Состояние репликации CIS - serverDocCount||Зависимый элемент данных|lmcz.replicationStatus.cis.serverDocCount<p>**Предобработка**</p><ul><li><p>JSON: `$.replicationStatus.cis.serverDocCount`</p></li></ul>|
+|Состояние репликации blocked_cis_7 - localDocCount||Зависимый элемент данных|lmcz.replicationStatus.blocked_cis_7.localDocCount<p>**Предобработка**</p><ul><li><p>JSON: `$.replicationStatus.blocked_cis_7.localDocCount`</p></li></ul>|
+|Состояние репликации blocked_cis_7 - serverDocCount||Зависимый элемент данных|lmcz.replicationStatus.blocked_cis_7.serverDocCount<p>**Предобработка**</p><ul><li><p>JSON: `$.replicationStatus.blocked_cis_7.serverDocCount`</p></li></ul>|
 |Статус СПО «Локальный модуль «Честный ЗНАК»||Зависимый элемент данных|lmcz.status<p>**Предобработка**</p><ul><li><p>JSON: `$.status`</p></li></ul>|
 |Тип режима обслуживания||Зависимый элемент данных|lmcz.operationMode<p>**Предобработка**</p><ul><li><p>JSON: `$.operationMode`</p></li></ul>|
 
